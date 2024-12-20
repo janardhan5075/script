@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #main {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+      .items {
+        margin: 2%;
+        background-color: antiquewhite;
+        padding: 2%;
+        height: 200px;
+        width: 200px;
+        border-radius: 10px;
+        text-align: center;
+        font-family: sans-serif;
+        font-weight: 500;
+      }
+      .items:hover {
+        background-color: wheat;
+        color: crimson;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script>
+      async function getData() {
+        const url = await fetch("https://dummyjson.com/todos");
+        let data = await url.json();
+        let myData = data.todos;
+        console.log(myData);
+
+        let Mytodos = myData
+          .map((e) => {
+            return `
+                    <div class="items">
+                    
+                    <p>Id:${e.id}</p>    
+                    <p>Todo:${e.todo}</p>    
+                    <p>Completed:${e.completed}</p>    
+                    <p>UserId:${e.userId}</p>    
+                    </div>
+                    `;
+          })
+          .join("");
+        document.getElementById("main").innerHTML = Mytodos;
+      }
+      getData();
+    </script>
+  </body>
+</html>
